@@ -16,19 +16,23 @@ public class SimpleBlockingQueueTest {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
         Thread producer = new Thread(
                 () -> {
-                    queue.offer(1);
-                    queue.offer(2);
-                    queue.offer(3);
+                    try {
+                        queue.offer(1);
+                        queue.offer(2);
+                        queue.offer(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
         );
         Thread consumer = new Thread(
                 () -> {
                     try {
                         Thread.sleep(2000);
+                        queue.poll();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    queue.poll();
                 });
         producer.start();
         consumer.start();
@@ -43,15 +47,23 @@ public class SimpleBlockingQueueTest {
     @Test
     public void whenQueueEmptyUsePollThenWaitOffer2sec() throws InterruptedException {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
-        Thread consumer = new Thread(queue::poll);
+        Thread consumer = new Thread(
+                () -> {
+                    try {
+                        Thread.sleep(2000);
+                        queue.poll();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
         Thread producer = new Thread(
                 () -> {
                     try {
                         Thread.sleep(2000);
+                        queue.offer(1);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    queue.offer(1);
                 }
         );
         consumer.start();
