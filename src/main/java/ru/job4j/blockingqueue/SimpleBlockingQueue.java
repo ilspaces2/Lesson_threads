@@ -44,8 +44,9 @@ public class SimpleBlockingQueue<T> {
         while (queue.size() == 0) {
             wait();
         }
+        T value = queue.poll();
         notify();
-        return queue.poll();
+        return value;
     }
 
     public synchronized int getSize() {
