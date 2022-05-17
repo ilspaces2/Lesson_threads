@@ -17,20 +17,12 @@ public class CASCount {
         Integer tmp;
         do {
             current = count.get();
-            if (current == null) {
-                throw new UnsupportedOperationException("Count is not impl.");
-            }
-            tmp = current;
-            tmp++;
+            tmp = current + 1;
         }
         while (!count.compareAndSet(current, tmp));
     }
 
     public int get() {
-        Integer value = count.get();
-        if (value == null) {
-            throw new UnsupportedOperationException("Count is not impl.");
-        }
-        return value;
+        return count.get();
     }
 }
