@@ -33,6 +33,7 @@ public class CacheTest {
         cache.add(user1);
         user2.setName("new name");
         cache.update(user2);
+        assertEquals(2, cache.getMap().get(1).getVersion());
         assertThat(user2.getName(), is(cache.getMap().get(1).getName()));
     }
 
