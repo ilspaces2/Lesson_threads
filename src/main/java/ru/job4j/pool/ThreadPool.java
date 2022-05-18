@@ -10,6 +10,11 @@ public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(10);
 
+    public ThreadPool() {
+        initPool();
+        startPool();
+    }
+
     public void initPool() {
         for (int i = 0; i < sizePool; i++) {
             threads.add(new TaskWorker(tasks));
@@ -22,12 +27,8 @@ public class ThreadPool {
         }
     }
 
-    public void work(Runnable job) {
-        try {
+    public void work(Runnable job) throws InterruptedException {
             tasks.offer(job);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void shutdown() {
