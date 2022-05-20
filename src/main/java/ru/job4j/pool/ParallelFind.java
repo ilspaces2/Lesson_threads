@@ -70,7 +70,7 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
      * @param value значение для поиска
      * @return возвращает индекс для value
      */
-    public Integer find(T[] array, T value) {
+    public static <T> Integer find(T[] array, T value) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         return forkJoinPool.invoke(new ParallelFind<>(array, value, 0, array.length - 1));
     }
