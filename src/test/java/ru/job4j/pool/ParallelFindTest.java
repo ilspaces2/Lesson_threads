@@ -36,4 +36,22 @@ public class ParallelFindTest {
         int expected = 40;
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void whenArrayIntegerAndLineSearch() {
+        Integer[] array = new Integer[]{43, 234, 643, 754, 24, 1123, 54, 33};
+        int actual = ParallelFind.find(array, 24);
+        int expected = 4;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void whenArrayStringAndIndexNotFound() {
+        String[] array = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                "k", "l", "m", "n", "o", "p", "q", "r",
+                "s", "t", "u", "v", "w", "x", "y", "z"};
+        int actual = ParallelFind.find(array, "Hello");
+        int expected = -1;
+        assertEquals(expected, actual);
+    }
 }
